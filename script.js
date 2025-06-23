@@ -124,12 +124,9 @@ function getRandomSectorIndex() {
     return sectors.length - 1;
 }
 
-let currentRotation = 0; // теперь нужна
-
-let totalRotation = 0;
-
-let totalRotation = 0;
 const POINTER_ANGLE = Math.PI / 2; // стрелка направо
+
+let rotation = 0;
 
 function spin() {
     if (isSpinning) return;
@@ -140,24 +137,18 @@ function spin() {
     const arcSize = (2 * Math.PI) / sectors.length;
     const extraRotations = 6;
 
-    // Центр выбранного сектора
-    const centerOfSector = (selectedIndex + 0.5) * arcSize;
+    const sectorCenter = (selectedIndex + 0.5) * arcSize;
 
-    // Угол, чтобы его совместить со стрелкой
-    const delta = POINTER_ANGLE - centerOfSector;
+    // Правильный расчёт: поворот так, чтобы центр сектора оказался под стрелкой
+    const rotationDelta = (extraRotations * 2 * Math.PI) + (POINTER_ANGLE - sectorCenter);
 
-    // Добавим полные обороты
-    totalRotation += extraRotations * 2 * Math.PI + delta;
+    rotation += rotationDelta;
 
-    // Анимация
     canvas.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
-    canvas.style.transform = `rotate(${totalRotation}rad)`;
+    canvas.style.transform = `rotate(${rotation}rad)`;
 
     setTimeout(() => {
         resultText.textContent = `Вы выиграли: ${sectors[selectedIndex].label}`;
         isSpinning = false;
     }, 4000);
 }
-
-spinBtn.addEventListener('click', spin);
-drawWheel();
