@@ -25,8 +25,9 @@ function drawWheel() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Рисуем сектора
     sectors.forEach((sector, i) => {
-        const startAngle = i * arcSize;
+        const startAngle = i * arcSize - Math.PI/2; // Смещаем на 90° влево (чтобы первый сектор был сверху)
         const endAngle = startAngle + arcSize;
 
         ctx.beginPath();
@@ -35,6 +36,7 @@ function drawWheel() {
         ctx.arc(centerX, centerY, radius, startAngle, endAngle);
         ctx.fill();
 
+        // Текст
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(startAngle + arcSize / 2);
@@ -52,11 +54,8 @@ function getRandomSector() {
 
     for (let i = 0; i < sectors.length; i++) {
         weightSum += sectors[i].weight;
-        if (random <= weightSum) {
-            return i;
-        }
+        if (random <= weightSum) return i;
     }
-    
     return sectors.length - 1;
 }
 
@@ -68,16 +67,15 @@ function spin() {
 
     const extraRotations = 5;
     const randomSector = getRandomSector();
-    const targetAngle = (randomSector * arcSize) + (arcSize / 2) - Math.PI/2;
-    const totalAngle = extraRotations * 2 * Math.PI + targetAngle; // Добавлено вычисление totalAngle
+    // Угол рассчитывается так, чтобы сектор останавливался напротив стрелки справа
+    const targetAngle = (randomSector * arcSize) + (arcSize / 2) + Math.PI/2;
+    const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
 
-    currentRotation = totalAngle; // Используем абсолютное значение вместо +=
-
+    currentRotation = totalAngle;
     canvas.style.transform = `rotate(${currentRotation}rad)`;
 
     setTimeout(() => {
-        const winningLabel = sectors[randomSector].label;
-        resultText.textContent = `Вы выиграли: ${winningLabel}`;
+        resultText.textContent = `Вы выиграли: ${sectors[randomSector].label}`;
         isSpinning = false;
     }, 4000);
 }
