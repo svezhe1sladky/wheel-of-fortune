@@ -75,17 +75,17 @@ function drawWheel() {
         ctx.restore();
     });
 
-// Центр круга — круглая фиолетовая иконка
+// Центр круга — круглая иконка
 const centerRadius = 40;
 ctx.beginPath();
 const centerGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, centerRadius);
-centerGradient.addColorStop(0, "#b388ff");
-centerGradient.addColorStop(1, "#512da8");
+centerGradient.addColorStop(0, "#f8caff");
+centerGradient.addColorStop(1, "#6a0dad");
 ctx.fillStyle = centerGradient;
 ctx.arc(centerX, centerY, centerRadius, 0, 2 * Math.PI);
 ctx.fill();
 
-// Белая иконка подарка (упрощённая)
+// Подарок
 ctx.save();
 ctx.translate(centerX, centerY);
 ctx.fillStyle = "#fff";
@@ -94,37 +94,23 @@ ctx.fillStyle = "#fff";
 ctx.fillRect(-10, -10, 20, 20);
 
 // Крышка
-ctx.fillStyle = "#f1f1f1";
+ctx.fillStyle = "#eee";
 ctx.fillRect(-12, -16, 24, 6);
 
-// Лента вертикальная
-ctx.fillStyle = "#c5cae9";
+// Лента
+ctx.fillStyle = "#ccc";
 ctx.fillRect(-2, -10, 4, 20);
 
 // Бантик
 ctx.beginPath();
 ctx.moveTo(0, -16);
-ctx.lineTo(-6, -22);
-ctx.lineTo(0, -19);
-ctx.lineTo(6, -22);
+ctx.lineTo(-6, -24);
+ctx.lineTo(0, -20);
+ctx.lineTo(6, -24);
 ctx.closePath();
-ctx.fillStyle = "#ffffff";
+ctx.fillStyle = "#fff";
 ctx.fill();
-
 ctx.restore();
-
-
-function getRandomSectorIndex() {
-    const totalWeight = sectors.reduce((sum, s) => sum + s.weight, 0);
-    let rnd = Math.random() * totalWeight;
-
-    for (let i = 0; i < sectors.length; i++) {
-        rnd -= sectors[i].weight;
-        if (rnd <= 0) return i;
-    }
-
-    return sectors.length - 1;
-}
 
 function spin() {
     if (isSpinning) return;
