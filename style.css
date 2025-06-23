@@ -34,13 +34,13 @@ h1 {
 .pointer {
     position: absolute;
     top: 50%;
-    right: -28px;
+    right: -26px;
     transform: translateY(-50%);
     width: 0;
     height: 0;
     border-top: 18px solid transparent;
     border-bottom: 18px solid transparent;
-    border-left: 26px solid;
+    border-left: 26px solid #ffffff;
     border-left-color: white;
     background: linear-gradient(to right, #fff, #eee);
     box-shadow: 0 0 0 2px #7b1fa2, 0 0 5px rgba(0,0,0,0.2);
