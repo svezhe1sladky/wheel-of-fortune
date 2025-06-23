@@ -151,7 +151,7 @@ function spin() {
         resultText.textContent = `Вы выиграли: ${sectors[selectedIndex].label}`;
         isSpinning = false;
     }, 4000);
-    spinBtn.addEventListener('click', spin);
+}
+spinBtn.addEventListener('click', spin);
 drawWheel();
 
-}
