@@ -75,44 +75,44 @@ function drawWheel() {
         ctx.restore();
     });
 
-    // Центр круга — улучшенная иконка подарка
-    const centerRadius = 40;
-    ctx.beginPath();
-    const centerGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, centerRadius);
-    centerGradient.addColorStop(0, "#f8caff");
-    centerGradient.addColorStop(1, "#8e24aa");
-    ctx.fillStyle = centerGradient;
-    ctx.arc(centerX, centerY, centerRadius, 0, 2 * Math.PI);
-    ctx.fill();
+// Центр круга — круглая фиолетовая иконка
+const centerRadius = 40;
+ctx.beginPath();
+const centerGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, centerRadius);
+centerGradient.addColorStop(0, "#b388ff");
+centerGradient.addColorStop(1, "#512da8");
+ctx.fillStyle = centerGradient;
+ctx.arc(centerX, centerY, centerRadius, 0, 2 * Math.PI);
+ctx.fill();
 
-    // Иконка подарка
-    ctx.save();
-    ctx.translate(centerX, centerY);
+// Белая иконка подарка (упрощённая)
+ctx.save();
+ctx.translate(centerX, centerY);
+ctx.fillStyle = "#fff";
 
-    // Коробка
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(-10, -10, 20, 20);
+// Коробка
+ctx.fillRect(-10, -10, 20, 20);
 
-    // Крышка
-    ctx.fillStyle = "#dddddd";
-    ctx.fillRect(-12, -16, 24, 6);
+// Крышка
+ctx.fillStyle = "#f1f1f1";
+ctx.fillRect(-12, -16, 24, 6);
 
-    // Лента
-    ctx.fillStyle = "#c2185b";
-    ctx.fillRect(-2, -10, 4, 20);
+// Лента вертикальная
+ctx.fillStyle = "#c5cae9";
+ctx.fillRect(-2, -10, 4, 20);
 
-    // Бантик
-    ctx.beginPath();
-    ctx.moveTo(0, -16);
-    ctx.lineTo(-6, -22);
-    ctx.lineTo(0, -19);
-    ctx.lineTo(6, -22);
-    ctx.closePath();
-    ctx.fillStyle = "#ffffff";
-    ctx.fill();
+// Бантик
+ctx.beginPath();
+ctx.moveTo(0, -16);
+ctx.lineTo(-6, -22);
+ctx.lineTo(0, -19);
+ctx.lineTo(6, -22);
+ctx.closePath();
+ctx.fillStyle = "#ffffff";
+ctx.fill();
 
-    ctx.restore();
-}
+ctx.restore();
+
 
 function getRandomSectorIndex() {
     const totalWeight = sectors.reduce((sum, s) => sum + s.weight, 0);
