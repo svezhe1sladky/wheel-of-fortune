@@ -71,8 +71,8 @@ function spin() {
 
     const extraRotations = 5; // количество полных оборотов
     const randomSector = getRandomSector();
-    // Стрелка теперь смотрит вправо, поэтому 0 радиан будет справа
-    const targetAngle = (totalSectors - randomSector) * arcSize - Math.PI/2;
+    
+const targetAngle = (randomSector * arcSize) + (arcSize / 2) - Math.PI/2;
 
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
 
