@@ -39,78 +39,74 @@ function drawWheel() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Рисуем секторы
     sectors.forEach((sector, i) => {
-    const startAngle = i * arcSize;
-    const endAngle = startAngle + arcSize;
+        const startAngle = i * arcSize;
+        const endAngle = startAngle + arcSize;
 
-    ctx.beginPath();
-    ctx.moveTo(centerX, centerY);
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
 
-    // 🎨 Локальный градиент по направлению сектора
-    let angle = startAngle + arcSize / 2;
-	let x1 = centerX;
-	let y1 = centerY;
-	let x2 = centerX + Math.cos(angle) * radius;
-	let y2 = centerY + Math.sin(angle) * radius;
+        let angle = startAngle + arcSize / 2;
+        let x1 = centerX;
+        let y1 = centerY;
+        let x2 = centerX + Math.cos(angle) * radius;
+        let y2 = centerY + Math.sin(angle) * radius;
 
-	let grad = ctx.createLinearGradient(x1, y1, x2, y2);
-	grad.addColorStop(0, sector.color);
-	grad.addColorStop(1, lightenColor(sector.color, 0.1)); // +10% яркости
+        let grad = ctx.createLinearGradient(x1, y1, x2, y2);
+        grad.addColorStop(0, sector.color);
+        grad.addColorStop(1, lightenColor(sector.color, 0.08));
 
-	ctx.fillStyle = grad;
+        ctx.fillStyle = grad;
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.lineTo(centerX, centerY);
+        ctx.fill();
 
-    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-    ctx.lineTo(centerX, centerY);
-    ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
 
-    ctx.strokeStyle = "#fff";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(startAngle + arcSize / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#333";
+        ctx.font = "bold 15px 'Segoe UI', sans-serif";
+        ctx.fillText(sector.label, radius - 10, 5);
+        ctx.restore();
+    });
 
-    // Текст
-    ctx.save();
-    ctx.translate(centerX, centerY);
-    ctx.rotate(startAngle + arcSize / 2);
-    ctx.textAlign = "right";
-    ctx.fillStyle = "#000";
-    ctx.font = "16px Arial";
-    ctx.fillText(sector.label, radius - 10, 5);
-    ctx.restore();
-});
-
-    // Рисуем центр — градиентный фиолетовый круг
+    // Центр круга — улучшенная иконка подарка
     const centerRadius = 40;
     ctx.beginPath();
     const centerGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, centerRadius);
-    centerGradient.addColorStop(0, "#c158dc");
-    centerGradient.addColorStop(1, "#6a0dad");
+    centerGradient.addColorStop(0, "#f8caff");
+    centerGradient.addColorStop(1, "#8e24aa");
     ctx.fillStyle = centerGradient;
     ctx.arc(centerX, centerY, centerRadius, 0, 2 * Math.PI);
     ctx.fill();
 
-    // Рисуем белую иконку подарка
+    // Иконка подарка
     ctx.save();
     ctx.translate(centerX, centerY);
 
     // Коробка
     ctx.fillStyle = "#ffffff";
-    ctx.fillRect(-12, -10, 24, 20);
+    ctx.fillRect(-10, -10, 20, 20);
 
     // Крышка
-    ctx.fillStyle = "#eeeeee";
-    ctx.fillRect(-14, -16, 28, 6);
-
-    // Лента вертикальная
     ctx.fillStyle = "#dddddd";
+    ctx.fillRect(-12, -16, 24, 6);
+
+    // Лента
+    ctx.fillStyle = "#c2185b";
     ctx.fillRect(-2, -10, 4, 20);
 
     // Бантик
     ctx.beginPath();
     ctx.moveTo(0, -16);
-    ctx.lineTo(-6, -24);
-    ctx.lineTo(0, -20);
-    ctx.lineTo(6, -24);
+    ctx.lineTo(-6, -22);
+    ctx.lineTo(0, -19);
+    ctx.lineTo(6, -22);
     ctx.closePath();
     ctx.fillStyle = "#ffffff";
     ctx.fill();
@@ -140,7 +136,7 @@ function spin() {
     const sectorAngle = arcSize;
 
     const extraRotations = 5;
-    const pointerAngle = 0; // стрелка справа по центру круга
+    const pointerAngle = 0;
     const targetAngle = pointerAngle - (selectedIndex * sectorAngle) - (sectorAngle / 2);
 
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
