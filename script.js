@@ -69,11 +69,12 @@ function spin() {
     resultText.textContent = '';
 
     const extraRotations = 5;
+    const selectedIndex = getRandomSectorIndex();
     const sectorAngle = (2 * Math.PI) / totalSectors;
 
-    const selectedIndex = getRandomSectorIndex();
-    const pointerAngle = Math.PI; // стрелка справа, смотрит влево
-    const targetAngle = pointerAngle - (selectedIndex * sectorAngle) + (sectorAngle / 2);
+    // Центр стрелки — справа, указывает на 0 радиан (0°)
+    const pointerAngle = 0; // стрелка на 0
+    const targetAngle = pointerAngle - (selectedIndex * sectorAngle) - (sectorAngle / 2);
 
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
     currentRotation += totalAngle;
