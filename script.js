@@ -72,9 +72,8 @@ function spin() {
     const extraRotations = 5; // количество полных оборотов
     const randomSector = getRandomSector();
     
-const targetAngle = (randomSector * arcSize) + (arcSize / 2) - Math.PI/2;
+    const targetAngle = (randomSector * arcSize) + (arcSize / 2) - Math.PI/2;
 
-    const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
 
     currentRotation += totalAngle;
 
