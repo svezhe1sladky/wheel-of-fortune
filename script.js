@@ -133,11 +133,13 @@ function spin() {
     const selectedIndex = getRandomSectorIndex();
     const sectorAngle = arcSize;
     const extraRotations = 5;
-    const pointerAngle = 0;
-    const targetAngle = pointerAngle - (selectedIndex * sectorAngle) - (sectorAngle / 2);
-    const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
 
+    const pointerAngle = Math.PI / 2; // Стрелка справа
+    const targetAngle = pointerAngle - (selectedIndex * sectorAngle) - (sectorAngle / 2);
+
+    const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
     currentRotation += totalAngle;
+
     canvas.style.transform = `rotate(${currentRotation}rad)`;
 
     setTimeout(() => {
@@ -145,6 +147,7 @@ function spin() {
         isSpinning = false;
     }, 4000);
 }
+
 
 spinBtn.addEventListener('click', spin);
 drawWheel();
