@@ -34,17 +34,18 @@ h1 {
 .pointer {
     position: absolute;
     top: 50%;
-    right: -25px;
+    right: -24px;
     transform: translateY(-50%);
     width: 0;
     height: 0;
     border-top: 18px solid transparent;
     border-bottom: 18px solid transparent;
-    border-left: 26px solid #ffffff;
-    box-shadow: 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 4px;
-    z-index: 5;
+    border-left: 26px solid white;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(106, 13, 173, 0.6);
+    z-index: 10;
 }
+
 #spinBtn {
     margin-top: 25px;
     padding: 12px 28px;
