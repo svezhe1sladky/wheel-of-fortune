@@ -133,7 +133,7 @@ function spin() {
 
     const selectedIndex = getRandomSectorIndex();
     const sectorAngle = arcSize;
-    const extraRotations = 5; // 👈 можно сделать больше (6–8)
+    const extraRotations = 8; // 👈 можно сделать больше (6–8)
 
     // Центр выбранного сектора
     const selectedSectorAngle = selectedIndex * sectorAngle + sectorAngle / 2;
