@@ -124,6 +124,8 @@ function getRandomSectorIndex() {
     return sectors.length - 1;
 }
 
+let currentRotation = 0; // теперь нужна
+
 function spin() {
     if (isSpinning) return;
     isSpinning = true;
@@ -133,20 +135,22 @@ function spin() {
     const sectorAngle = arcSize;
     const extraRotations = 5;
 
-    // Вычисляем угол центра выбранного сектора
+    // Целевой сектор — нужно повернуть, чтобы он оказался под стрелкой справа (π/2)
     const selectedAngle = (selectedIndex * sectorAngle) + (sectorAngle / 2);
-
-    // Угол, на который надо повернуть, чтобы центр выбранного сектора оказался на стрелке (справа)
     const targetRotation = (extraRotations * 2 * Math.PI) + (Math.PI / 2 - selectedAngle);
 
-    // Вращаем canvas до абсолютного значения (НЕ накапливаем)
-    canvas.style.transform = `rotate(${targetRotation}rad)`;
+    // Обновляем текущее вращение (накопительно)
+    currentRotation += targetRotation;
+
+    // Вращаем колесо
+    canvas.style.transform = `rotate(${currentRotation}rad)`;
 
     setTimeout(() => {
         resultText.textContent = `Вы выиграли: ${sectors[selectedIndex].label}`;
         isSpinning = false;
     }, 4000);
 }
+
 
 
 spinBtn.addEventListener('click', spin);
