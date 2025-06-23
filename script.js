@@ -12,7 +12,6 @@ const sectors = [
     { color: '#FF9800', label: 'Приз 6', weight: 1 },
 ];
 
-// Вычисляем общий вес
 const totalWeight = sectors.reduce((sum, sector) => sum + sector.weight, 0);
 const totalSectors = sectors.length;
 const arcSize = (2 * Math.PI) / totalSectors;
@@ -36,7 +35,6 @@ function drawWheel() {
         ctx.arc(centerX, centerY, radius, startAngle, endAngle);
         ctx.fill();
 
-        // Текст
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(startAngle + arcSize / 2);
@@ -49,7 +47,6 @@ function drawWheel() {
 }
 
 function getRandomSector() {
-    // Генерируем случайное число от 0 до общего веса
     let random = Math.random() * totalWeight;
     let weightSum = 0;
 
@@ -60,7 +57,7 @@ function getRandomSector() {
         }
     }
     
-    return sectors.length - 1; // fallback
+    return sectors.length - 1;
 }
 
 function spin() {
@@ -69,13 +66,12 @@ function spin() {
     isSpinning = true;
     resultText.textContent = '';
 
-    const extraRotations = 5; // количество полных оборотов
+    const extraRotations = 5;
     const randomSector = getRandomSector();
-    
     const targetAngle = (randomSector * arcSize) + (arcSize / 2) - Math.PI/2;
+    const totalAngle = extraRotations * 2 * Math.PI + targetAngle; // Добавлено вычисление totalAngle
 
-
-    currentRotation += totalAngle;
+    currentRotation = totalAngle; // Используем абсолютное значение вместо +=
 
     canvas.style.transform = `rotate(${currentRotation}rad)`;
 
@@ -83,7 +79,7 @@ function spin() {
         const winningLabel = sectors[randomSector].label;
         resultText.textContent = `Вы выиграли: ${winningLabel}`;
         isSpinning = false;
-    }, 4000); // столько же, сколько transition в CSS
+    }, 4000);
 }
 
 spinBtn.addEventListener('click', spin);
