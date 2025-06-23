@@ -16,7 +16,7 @@ body {
     position: relative;
     width: 400px;
     height: 400px;
-    margin: 0 auto 30px; /* Добавлен отступ снизу */
+    margin: 0 auto 30px;
 }
 
 #wheelCanvas {
@@ -24,7 +24,7 @@ body {
     height: 100%;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+    transition: transform 4s cubic-bezier(0.17, 0.67, 0.21, 0.99);
 }
 
 .pointer {
@@ -34,31 +34,33 @@ body {
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-left: 30px solid #FF5722; /* Теперь правильно смотрит влево */
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 35px solid #FF5722; /* Смотрит налево */
     z-index: 10;
-    filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
 }
 
 #spinBtn {
     margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background: #ff5722;
+    padding: 12px 24px;
+    font-size: 18px;
+    background: #FF5722;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 #spinBtn:hover {
-    background: #e64a19;
+    background: #E64A19;
+    transform: scale(1.05);
 }
 
 #result {
     margin-top: 20px;
     font-size: 24px;
     font-weight: bold;
+    min-height: 36px;
 }

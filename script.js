@@ -21,20 +21,20 @@ let isSpinning = false;
 function drawWheel() {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = canvas.width / 2;
+    const radius = Math.min(canvas.width, canvas.height) / 2;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Внешний обод
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 8;
     ctx.strokeStyle = '#333';
     ctx.stroke();
 
     // Сектора
     sectors.forEach((sector, i) => {
-        const startAngle = i * arcSize - Math.PI/2; // Смещение на 90°
+        const startAngle = i * arcSize - Math.PI/2;
         const endAngle = startAngle + arcSize;
 
         ctx.beginPath();
@@ -48,17 +48,17 @@ function drawWheel() {
         ctx.translate(centerX, centerY);
         ctx.rotate(startAngle + arcSize / 2);
         ctx.textAlign = "center";
-        ctx.fillStyle = "#000";
-        ctx.font = "bold 16px Arial";
-        ctx.fillText(sector.label, radius * 0.7, 5);
+        ctx.fillStyle = "#FFF";
+        ctx.font = "bold 18px Arial";
+        ctx.fillText(sector.label, radius * 0.65, 7);
         ctx.restore();
     });
 }
 
 function getRandomSector() {
-    let random = Math.random() * totalWeight;
+    const random = Math.random() * totalWeight;
     let weightSum = 0;
-
+    
     for (let i = 0; i < sectors.length; i++) {
         weightSum += sectors[i].weight;
         if (random <= weightSum) return i;
@@ -68,22 +68,23 @@ function getRandomSector() {
 
 function spin() {
     if (isSpinning) return;
+    
     isSpinning = true;
     resultText.textContent = '';
+    spinBtn.disabled = true;
 
     const extraRotations = 5;
     const randomSector = getRandomSector();
-    
-    // Правильный расчет угла для стрелки справа
-    const targetAngle = (randomSector * arcSize) + (arcSize / 2) - Math.PI/2;
+    const targetAngle = (randomSector * arcSize) + (arcSize / 2) + Math.PI;
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
 
     currentRotation = totalAngle;
     canvas.style.transform = `rotate(${currentRotation}rad)`;
 
     setTimeout(() => {
-        resultText.innerHTML = `<strong>Вы выиграли:</strong> ${sectors[randomSector].label}`;
+        resultText.innerHTML = `🎉 <strong>Вы выиграли:</strong> ${sectors[randomSector].label} 🎉`;
         isSpinning = false;
+        spinBtn.disabled = false;
     }, 4000);
 }
 
