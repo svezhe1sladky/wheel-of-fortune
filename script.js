@@ -9,7 +9,7 @@ const sectors = [
     { color: '#8E24AA', label: 'Скидка 5%', weight: 25,4 },
     { color: '#6A0DAD', label: 'Скидка 15%', weight: 1 },
     { color: '#7B1FA2', label: 'Повезет в следующий раз', weight: 43 },
-    { color: '#8E24AA', label: 'Приз 6', weight: 0,2 },
+    { color: '#8E24AA', label: 'Персональный мундштук', weight: 0,2 },
 ];
 
 const totalSectors = sectors.length;
