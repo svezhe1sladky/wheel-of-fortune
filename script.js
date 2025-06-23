@@ -6,7 +6,7 @@ const resultText = document.getElementById('result');
 const sectors = [
     { color: '#6A0DAD', label: 'Приз 1', weight: 3 },
     { color: '#7B1FA2', label: 'Приз 2', weight: 2 },
-    { color: '#8E24AA', label: 'Приз 3', weight: 1 },
+    { color: '#8E24AA', label: 'Скидка 5%', weight: 100 },
     { color: '#6A0DAD', label: 'Приз 4', weight: 2 },
     { color: '#7B1FA2', label: 'Приз 5', weight: 1 },
     { color: '#8E24AA', label: 'Приз 6', weight: 3 },
