@@ -4,14 +4,16 @@ const spinBtn = document.getElementById('spinBtn');
 const resultText = document.getElementById('result');
 
 const sectors = [
-    { color: '#FF5252', label: 'Приз 1' },
-    { color: '#FFEB3B', label: 'Приз 2' },
-    { color: '#4CAF50', label: 'Приз 3' },
-    { color: '#2196F3', label: 'Приз 4' },
-    { color: '#9C27B0', label: 'Приз 5' },
-    { color: '#FF9800', label: 'Приз 6' },
+    { color: '#FF5252', label: 'Приз 1', weight: 1 },
+    { color: '#FFEB3B', label: 'Приз 2', weight: 1 },
+    { color: '#4CAF50', label: 'Приз 3', weight: 1 },
+    { color: '#2196F3', label: 'Приз 4', weight: 1 },
+    { color: '#9C27B0', label: 'Приз 5', weight: 1 },
+    { color: '#FF9800', label: 'Приз 6', weight: 1 },
 ];
 
+// Вычисляем общий вес
+const totalWeight = sectors.reduce((sum, sector) => sum + sector.weight, 0);
 const totalSectors = sectors.length;
 const arcSize = (2 * Math.PI) / totalSectors;
 let currentRotation = 0;
@@ -46,6 +48,21 @@ function drawWheel() {
     });
 }
 
+function getRandomSector() {
+    // Генерируем случайное число от 0 до общего веса
+    let random = Math.random() * totalWeight;
+    let weightSum = 0;
+
+    for (let i = 0; i < sectors.length; i++) {
+        weightSum += sectors[i].weight;
+        if (random <= weightSum) {
+            return i;
+        }
+    }
+    
+    return sectors.length - 1; // fallback
+}
+
 function spin() {
     if (isSpinning) return;
 
@@ -53,8 +70,9 @@ function spin() {
     resultText.textContent = '';
 
     const extraRotations = 5; // количество полных оборотов
-    const randomSector = Math.floor(Math.random() * totalSectors);
-    const targetAngle = (3 * Math.PI / 2) - (randomSector * arcSize); // 270° - сектор
+    const randomSector = getRandomSector();
+    // Стрелка теперь смотрит вправо, поэтому 0 радиан будет справа
+    const targetAngle = (totalSectors - randomSector) * arcSize - Math.PI/2;
 
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
 
