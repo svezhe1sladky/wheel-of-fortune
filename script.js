@@ -3,7 +3,6 @@ const ctx = canvas.getContext('2d');
 const spinBtn = document.getElementById('spinBtn');
 const resultText = document.getElementById('result');
 
-// Добавим вес (шанс выпадения) каждому сектору
 const sectors = [
     { color: '#FF5252', label: 'Приз 1', weight: 5 },
     { color: '#FFEB3B', label: 'Приз 2', weight: 1 },
@@ -18,7 +17,6 @@ const arcSize = (2 * Math.PI) / totalSectors;
 let currentRotation = 0;
 let isSpinning = false;
 
-// Отрисовка колеса
 function drawWheel() {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
@@ -36,7 +34,6 @@ function drawWheel() {
         ctx.arc(centerX, centerY, radius, startAngle, endAngle);
         ctx.fill();
 
-        // Текст
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(startAngle + arcSize / 2);
@@ -48,7 +45,6 @@ function drawWheel() {
     });
 }
 
-// Выбор случайного сектора по весу
 function getRandomSectorIndex() {
     const totalWeight = sectors.reduce((sum, s) => sum + s.weight, 0);
     let rnd = Math.random() * totalWeight;
@@ -58,22 +54,20 @@ function getRandomSectorIndex() {
         if (rnd <= 0) return i;
     }
 
-    return sectors.length - 1; // запасной случай
+    return sectors.length - 1;
 }
 
-// Вращение
 function spin() {
     if (isSpinning) return;
 
     isSpinning = true;
     resultText.textContent = '';
 
-    const extraRotations = 5;
     const selectedIndex = getRandomSectorIndex();
-    const sectorAngle = (2 * Math.PI) / totalSectors;
+    const sectorAngle = arcSize;
 
-    // Центр стрелки — справа, указывает на 0 радиан (0°)
-    const pointerAngle = 0; // стрелка на 0
+    const extraRotations = 5;
+    const pointerAngle = 0; // стрелка справа по центру круга
     const targetAngle = pointerAngle - (selectedIndex * sectorAngle) - (sectorAngle / 2);
 
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
