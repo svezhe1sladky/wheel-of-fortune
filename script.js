@@ -17,11 +17,6 @@ const arcSize = (2 * Math.PI) / totalSectors;
 let currentRotation = 0;
 let isSpinning = false;
 
-const giftImg = new Image();
-giftImg.src = "gift.png";
-giftImg.onload = () => {
-    drawWheel();
-};
 
 function lightenColor(hex, percent) {
     let num = parseInt(hex.replace('#', ''), 16),
@@ -86,9 +81,38 @@ function drawWheel() {
     ctx.fill();
 
     if (giftImg.complete) {
-        ctx.drawImage(giftImg, centerX - 16, centerY - 16, 32, 32);
+        // Рисуем иконку подарка кодом
+ctx.save();
+ctx.translate(centerX, centerY);
+ctx.strokeStyle = "#ffffff";
+ctx.lineWidth = 2;
+ctx.lineJoin = "round";
+
+// Коробка
+ctx.strokeRect(-10, -10, 20, 20);
+
+// Крышка
+ctx.beginPath();
+ctx.moveTo(-12, -10);
+ctx.lineTo(12, -10);
+ctx.stroke();
+
+// Лента вертикальная
+ctx.beginPath();
+ctx.moveTo(0, -10);
+ctx.lineTo(0, 10);
+ctx.stroke();
+
+// Бантик
+ctx.beginPath();
+ctx.moveTo(0, -10);
+ctx.bezierCurveTo(-5, -20, -10, -5, 0, -5);
+ctx.moveTo(0, -10);
+ctx.bezierCurveTo(5, -20, 10, -5, 0, -5);
+ctx.stroke();
+
+ctx.restore();
     }
-}
 
 function getRandomSectorIndex() {
     const totalWeight = sectors.reduce((sum, s) => sum + s.weight, 0);
