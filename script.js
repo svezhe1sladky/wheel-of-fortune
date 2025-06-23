@@ -135,20 +135,22 @@ function spin() {
     const sectorAngle = arcSize;
     const extraRotations = 5;
 
-    // Центр нужного сектора
-    const selectedSectorCenter = (selectedIndex + 0.5) * sectorAngle;
+    // Угол до центра выбранного сектора
+    const selectedSectorAngle = selectedIndex * sectorAngle + sectorAngle / 2;
 
-    // Абсолютный угол, чтобы сектор оказался под стрелкой (π/2 = справа)
-    const targetAngle = (Math.PI / 2) - selectedSectorCenter + extraRotations * 2 * Math.PI;
+    // Нам нужно, чтобы он оказался строго под стрелкой (вправо = 0 рад)
+    // Поэтому крутим в минус выбранный угол
+    const totalRotation = extraRotations * 2 * Math.PI - selectedSectorAngle;
 
-    // Устанавливаем без накоплений
-    canvas.style.transform = `rotate(${targetAngle}rad)`;
+    // Устанавливаем поворот
+    canvas.style.transform = `rotate(${totalRotation}rad)`;
 
     setTimeout(() => {
         resultText.textContent = `Вы выиграли: ${sectors[selectedIndex].label}`;
         isSpinning = false;
     }, 4000);
 }
+
 
 
 
