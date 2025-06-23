@@ -126,6 +126,8 @@ function getRandomSectorIndex() {
 
 let currentRotation = 0; // теперь нужна
 
+let totalRotation = 0;
+
 function spin() {
     if (isSpinning) return;
     isSpinning = true;
@@ -133,15 +135,16 @@ function spin() {
 
     const selectedIndex = getRandomSectorIndex();
     const sectorAngle = arcSize;
-    const extraRotations = 8; // 👈 можно сделать больше (6–8)
+    const extraRotations = 6;
 
-    // Центр выбранного сектора
+    // Центр нужного сектора
     const selectedSectorAngle = selectedIndex * sectorAngle + sectorAngle / 2;
 
-    // Добавим вращение: крутим назад до нужного сектора + несколько оборотов
-    const totalRotation = extraRotations * 2 * Math.PI - selectedSectorAngle;
+    // Следующий полный угол — добавим обороты сверх текущего поворота
+    totalRotation += extraRotations * 2 * Math.PI;
+    totalRotation -= selectedSectorAngle; // Центр сектора должен попасть под стрелку
 
-    // Применяем CSS-поворот
+    // Применяем анимацию
     canvas.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
     canvas.style.transform = `rotate(${totalRotation}rad)`;
 
@@ -150,9 +153,6 @@ function spin() {
         isSpinning = false;
     }, 4000);
 }
-
-
-
 
 
 spinBtn.addEventListener('click', spin);
