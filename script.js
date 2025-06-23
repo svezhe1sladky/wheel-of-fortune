@@ -17,7 +17,6 @@ const arcSize = (2 * Math.PI) / totalSectors;
 let currentRotation = 0;
 let isSpinning = false;
 
-
 function lightenColor(hex, percent) {
     let num = parseInt(hex.replace('#', ''), 16),
         amt = Math.round(2.55 * percent * 100),
@@ -43,6 +42,7 @@ function drawWheel() {
         const startAngle = i * arcSize;
         const endAngle = startAngle + arcSize;
 
+        // Сектор
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
         let angle = startAngle + arcSize / 2;
@@ -59,6 +59,7 @@ function drawWheel() {
         ctx.lineWidth = 2;
         ctx.stroke();
 
+        // Текст
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(startAngle + arcSize / 2);
@@ -71,6 +72,7 @@ function drawWheel() {
         ctx.restore();
     });
 
+    // Центр круга — фиолетовый круг
     const centerRadius = 40;
     ctx.beginPath();
     const centerGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, centerRadius);
@@ -80,39 +82,38 @@ function drawWheel() {
     ctx.arc(centerX, centerY, centerRadius, 0, 2 * Math.PI);
     ctx.fill();
 
-    if (giftImg.complete) {
-        // Рисуем иконку подарка кодом
-ctx.save();
-ctx.translate(centerX, centerY);
-ctx.strokeStyle = "#ffffff";
-ctx.lineWidth = 2;
-ctx.lineJoin = "round";
+    // Отрисовка иконки подарка (кодом)
+    ctx.save();
+    ctx.translate(centerX, centerY);
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 2;
+    ctx.lineJoin = "round";
 
-// Коробка
-ctx.strokeRect(-10, -10, 20, 20);
+    // Коробка
+    ctx.strokeRect(-10, -10, 20, 20);
 
-// Крышка
-ctx.beginPath();
-ctx.moveTo(-12, -10);
-ctx.lineTo(12, -10);
-ctx.stroke();
+    // Крышка
+    ctx.beginPath();
+    ctx.moveTo(-12, -10);
+    ctx.lineTo(12, -10);
+    ctx.stroke();
 
-// Лента вертикальная
-ctx.beginPath();
-ctx.moveTo(0, -10);
-ctx.lineTo(0, 10);
-ctx.stroke();
+    // Лента вертикальная
+    ctx.beginPath();
+    ctx.moveTo(0, -10);
+    ctx.lineTo(0, 10);
+    ctx.stroke();
 
-// Бантик
-ctx.beginPath();
-ctx.moveTo(0, -10);
-ctx.bezierCurveTo(-5, -20, -10, -5, 0, -5);
-ctx.moveTo(0, -10);
-ctx.bezierCurveTo(5, -20, 10, -5, 0, -5);
-ctx.stroke();
+    // Бантик
+    ctx.beginPath();
+    ctx.moveTo(0, -10);
+    ctx.bezierCurveTo(-5, -20, -10, -5, 0, -5);
+    ctx.moveTo(0, -10);
+    ctx.bezierCurveTo(5, -20, 10, -5, 0, -5);
+    ctx.stroke();
 
-ctx.restore();
-    }
+    ctx.restore();
+}
 
 function getRandomSectorIndex() {
     const totalWeight = sectors.reduce((sum, s) => sum + s.weight, 0);
