@@ -54,7 +54,7 @@ function spin() {
 
     const extraRotations = 5; // количество полных оборотов
     const randomSector = Math.floor(Math.random() * totalSectors);
-    const targetAngle = (totalSectors - randomSector) * arcSize; // на противоположную сторону, потому что 0 — вверх
+    const targetAngle = (3 * Math.PI / 2) - (randomSector * arcSize); // 270° - сектор
 
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
 
