@@ -3,13 +3,14 @@ const ctx = canvas.getContext('2d');
 const spinBtn = document.getElementById('spinBtn');
 const resultText = document.getElementById('result');
 
+// Добавим вес (шанс выпадения) каждому сектору
 const sectors = [
-    { color: '#FF5252', label: 'Приз 1' },
-    { color: '#FFEB3B', label: 'Приз 2' },
-    { color: '#4CAF50', label: 'Приз 3' },
-    { color: '#2196F3', label: 'Приз 4' },
-    { color: '#9C27B0', label: 'Приз 5' },
-    { color: '#FF9800', label: 'Приз 6' },
+    { color: '#FF5252', label: 'Приз 1', weight: 5 },
+    { color: '#FFEB3B', label: 'Приз 2', weight: 1 },
+    { color: '#4CAF50', label: 'Приз 3', weight: 3 },
+    { color: '#2196F3', label: 'Приз 4', weight: 2 },
+    { color: '#9C27B0', label: 'Приз 5', weight: 4 },
+    { color: '#FF9800', label: 'Приз 6', weight: 1 },
 ];
 
 const totalSectors = sectors.length;
@@ -17,6 +18,7 @@ const arcSize = (2 * Math.PI) / totalSectors;
 let currentRotation = 0;
 let isSpinning = false;
 
+// Отрисовка колеса
 function drawWheel() {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
@@ -46,27 +48,42 @@ function drawWheel() {
     });
 }
 
+// Выбор случайного сектора по весу
+function getRandomSectorIndex() {
+    const totalWeight = sectors.reduce((sum, s) => sum + s.weight, 0);
+    let rnd = Math.random() * totalWeight;
+
+    for (let i = 0; i < sectors.length; i++) {
+        rnd -= sectors[i].weight;
+        if (rnd <= 0) return i;
+    }
+
+    return sectors.length - 1; // запасной случай
+}
+
+// Вращение
 function spin() {
     if (isSpinning) return;
 
     isSpinning = true;
     resultText.textContent = '';
 
-    const extraRotations = 5; // количество полных оборотов
-    const randomSector = Math.floor(Math.random() * totalSectors);
-    const targetAngle = (totalSectors - randomSector) * arcSize; // на противоположную сторону, потому что 0 — вверх
+    const extraRotations = 5;
+    const sectorAngle = (2 * Math.PI) / totalSectors;
+
+    const selectedIndex = getRandomSectorIndex();
+    const pointerAngle = Math.PI; // стрелка справа, смотрит влево
+    const targetAngle = pointerAngle - (selectedIndex * sectorAngle) + (sectorAngle / 2);
 
     const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
-
     currentRotation += totalAngle;
 
     canvas.style.transform = `rotate(${currentRotation}rad)`;
 
     setTimeout(() => {
-        const winningLabel = sectors[randomSector].label;
-        resultText.textContent = `Вы выиграли: ${winningLabel}`;
+        resultText.textContent = `Вы выиграли: ${sectors[selectedIndex].label}`;
         isSpinning = false;
-    }, 4000); // столько же, сколько transition в CSS
+    }, 4000);
 }
 
 spinBtn.addEventListener('click', spin);
