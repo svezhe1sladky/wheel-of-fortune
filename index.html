@@ -3,21 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Колесо Фортуны</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Испытайте удачу</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                #ff9999 0% 20%,
+                #99ff99 20% 40%,
+                #9999ff 40% 60%,
+                #ffff99 60% 80%,
+                #ff99ff 80% 100%
+            );
+            position: relative;
+            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            transform: rotate(0deg);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wheel-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #ff3333;
+            z-index: 10;
+        }
+        
+        .spin-btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .spin-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .spin-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Крути Колесо!</h1>
-        <div class="wheel-wrapper">
-            <canvas id="wheelCanvas"></canvas>
-            <div class="pointer"></div>
-        </div>
-        <button id="spinBtn">Крутить!</button>
-        <div class="result-container">
-            <div id="result">Готов к вращению!</div>
+    <h1>Испытайте удачу</h1>
+    
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel">
+            <div class="wheel-item" style="transform: rotate(36deg) translateY(-120px) rotate(-36deg);">Скидка 16 %</div>
+            <div class="wheel-item" style="transform: rotate(108deg) translateY(-120px) rotate(-108deg);">Повезет в другой раз</div>
+            <div class="wheel-item" style="transform: rotate(180deg) translateY(-120px) rotate(-180deg);">Скидка 5 %</div>
+            <div class="wheel-item" style="transform: rotate(252deg) translateY(-120px) rotate(-252deg);">Повезет в другой раз</div>
+            <div class="wheel-item" style="transform: rotate(324deg) translateY(-120px) rotate(-324deg);">Скидка 10 %</div>
         </div>
     </div>
-    <script src="script.js"></script>
+    
+    <button class="spin-btn" id="spinBtn">Крутить</button>
+    
+    <script>
+        const wheel = document.getElementById('wheel');
+        const spinBtn = document.getElementById('spinBtn');
+        let isSpinning = false;
+        
+        const prizes = [
+            { text: "Скидка 16 %", angle: 36 },
+            { text: "Повезет в другой раз", angle: 108 },
+            { text: "Скидка 5 %", angle: 180 },
+            { text: "Повезет в другой раз", angle: 252 },
+            { text: "Скидка 10 %", angle: 324 }
+        ];
+        
+        spinBtn.addEventListener('click', () => {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            spinBtn.disabled = true;
+            
+            // Выбираем случайный приз
+            const randomIndex = Math.floor(Math.random() * prizes.length);
+            const selectedPrize = prizes[randomIndex];
+            
+            // Рассчитываем конечный угол вращения (5 полных оборотов + угол приза)
+            const spinAngle = 1800 + selectedPrize.angle;
+            
+            // Вращаем колесо
+            wheel.style.transform = `rotate(-${spinAngle}deg)`;
+            
+            // После завершения вращения
+            setTimeout(() => {
+                isSpinning = false;
+                spinBtn.disabled = false;
+                alert(`Вы выиграли: ${selectedPrize.text}`);
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
