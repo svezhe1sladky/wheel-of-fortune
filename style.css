@@ -42,15 +42,15 @@ h1 {
 .pointer {
     position: absolute;
     top: 50%;
-    right: -24px;
+    right: -26px;
     transform: translateY(-50%);
     width: 0;
     height: 0;
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
-    border-left: 30px solid #e0e0e0;
+    border-left: 30px solid #ffffff;
     border-radius: 4px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
 }
 
 /* Кнопка */
