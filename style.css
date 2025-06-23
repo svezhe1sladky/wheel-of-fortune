@@ -1,23 +1,25 @@
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    height: 100vh;
+    background: url('photo_2025-06-23_16-04-23.jpg') center/cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: #f2edf5;
-}
-
-h1 {
-    font-size: 36px;
-    color: #6A0DAD;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .wheel-container {
     text-align: center;
-    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+h1 {
+    font-size: 36px;
+    color: #4a0072;
+    margin-bottom: 20px;
 }
 
 .wheel-wrapper {
@@ -25,42 +27,43 @@ h1 {
     width: 400px;
     height: 400px;
     margin: 0 auto;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, #ffffff 0%, #e6dff0 100%);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 #wheelCanvas {
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
     transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+    background: radial-gradient(circle at center, #5e35b1 0%, #4527a0 100%);
 }
 
 /* Новая красивая стрелка */
 .pointer {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -200%);
+    right: -24px;
+    transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 30px solid #e91e63;
-    z-index: 10;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 30px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
 }
 
+/* Кнопка */
 #spinBtn {
     margin-top: 25px;
     padding: 12px 28px;
     font-size: 18px;
-    background: linear-gradient(to right, #ff7043, #ff5722);
+    background: #ff5722;
     color: white;
     border: none;
     border-radius: 25px;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: background 0.3s, transform 0.2s;
 }
 
@@ -70,8 +73,8 @@ h1 {
 }
 
 #result {
-    margin-top: 25px;
+    margin-top: 20px;
     font-size: 22px;
-    font-weight: 600;
-    color: #4a148c;
+    font-weight: bold;
+    color: #2e003e;
 }
