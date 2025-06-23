@@ -14,7 +14,6 @@ const sectors = [
 
 const totalSectors = sectors.length;
 const arcSize = (2 * Math.PI) / totalSectors;
-let currentRotation = 0;
 let isSpinning = false;
 
 function lightenColor(hex, percent) {
@@ -134,13 +133,14 @@ function spin() {
     const sectorAngle = arcSize;
     const extraRotations = 5;
 
-    const pointerAngle = Math.PI / 2; // Стрелка справа
-    const targetAngle = pointerAngle - (selectedIndex * sectorAngle) - (sectorAngle / 2);
+    // Вычисляем угол центра выбранного сектора
+    const selectedAngle = (selectedIndex * sectorAngle) + (sectorAngle / 2);
 
-    const totalAngle = extraRotations * 2 * Math.PI + targetAngle;
-    currentRotation += totalAngle;
+    // Угол, на который надо повернуть, чтобы центр выбранного сектора оказался на стрелке (справа)
+    const targetRotation = (extraRotations * 2 * Math.PI) + (Math.PI / 2 - selectedAngle);
 
-    canvas.style.transform = `rotate(${currentRotation}rad)`;
+    // Вращаем canvas до абсолютного значения (НЕ накапливаем)
+    canvas.style.transform = `rotate(${targetRotation}rad)`;
 
     setTimeout(() => {
         resultText.textContent = `Вы выиграли: ${sectors[selectedIndex].label}`;
