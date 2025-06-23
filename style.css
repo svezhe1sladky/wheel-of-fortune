@@ -30,15 +30,15 @@ body {
 .pointer {
     position: absolute;
     top: 50%;
-    right: -5px; /* Вплотную к краю колеса */
-    transform: translateY(-50%) rotate(180deg); /* Разворот на 180° */
+    right: 0;
+    transform: translateY(-50%);
     width: 0;
     height: 0;
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
-    border-right: 30px solid #FF5722; /* Теперь смотрит влево */
+    border-left: 30px solid #FF5722; /* Теперь правильно смотрит влево */
     z-index: 10;
-    filter: drop-shadow(0 0 2px rgba(0,0,0,0.3)); /* Эффект тени */
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
 }
 
 #spinBtn {
