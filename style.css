@@ -2,57 +2,49 @@ body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     height: 100vh;
-    background: url('photo_2025-06-23_16-04-23.jpg') center/cover no-repeat;
+    background: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .wheel-container {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: white;
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
-
 h1 {
-    font-size: 36px;
+    font-size: 32px;
     color: #4a0072;
     margin-bottom: 20px;
 }
-
 .wheel-wrapper {
     position: relative;
     width: 400px;
     height: 400px;
     margin: 0 auto;
 }
-
 #wheelCanvas {
     display: block;
     width: 400px;
     height: 400px;
     transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
 }
-
-
-/* Новая красивая стрелка */
 .pointer {
     position: absolute;
     top: 50%;
-    right: -26px;
+    right: -25px;
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-left: 30px solid #ffffff;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-left: 26px solid #ffffff;
+    box-shadow: 0 0 6px rgba(0,0,0,0.3);
     border-radius: 4px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    z-index: 5;
 }
-
-/* Кнопка */
 #spinBtn {
     margin-top: 25px;
     padding: 12px 28px;
@@ -62,18 +54,15 @@ h1 {
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: background 0.3s, transform 0.2s;
 }
-
 #spinBtn:hover {
     background: #e64a19;
     transform: scale(1.05);
 }
-
 #result {
     margin-top: 20px;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     color: #2e003e;
 }
